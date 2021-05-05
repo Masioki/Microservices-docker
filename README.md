@@ -24,7 +24,7 @@ mvn package
 
 - Now docker-compose will use already created images to run containers.
   <br>In docker-compose.yml file project/image version from which container should be created can be specified i.e. '
-  image: credit:1.0'.
+  image: credit:1.0'. Database container is build from pre-defined mysql image.
   <br>Please wait for containers, especially database, to fully initialize before using.
 
 ```bash
@@ -168,6 +168,8 @@ Each project supports multiple test profiles.
     - test - in-memory database
 
 # Additional info
+
+There's one database container which is initialized with init.sql file, where databases and users with privileges only to one database (each service use its own user and db) are created. 
 
 Each customer is recognized by Pesel. If customer was once created POST request on /api/create won't change data like name or surname. For this kind of requests PUT method should be used.
 
