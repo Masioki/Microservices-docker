@@ -3,14 +3,14 @@
 # Tools
 
 - Docker (docker-compose 3.8)
-- Java 11 (Spring Boot )
+- Java 11 (Spring Boot, Maven)
 
 # Build
 
 Use this commands from project root directory.
 
-- This will create all images with dockerfile-maven-plugin named 'credit', 'product' and 'customer'.
-  <br> Every image will be tagged with project version.
+- This will create all images with dockerfile-maven-plugin and Dockerfiles named 'credit', 'product' and 'customer'.
+  <br> Every image will be tagged with project version froms its pom.xml.
   <br> Dockerfiles sets container user to non-root.
 
 ```bash
@@ -35,6 +35,119 @@ docker-compose up
 docker-compose start
 ```
 
+# Sample requests
+
+- Endpoints
+  - GET /api/get/all - get all credits
+  - POST /api/create - create new credit
+- Proper requests
+
+```json5
+// GET :8081/api/get/all
+
+// RESPONSE: 
+[
+  {
+    "credit": {
+      "creditName": "Cool credit no 2",
+      "id": 1
+    },
+    "customer": {
+      "creditID": 1,
+      "firstName": "Melanie",
+      "pesel": "12345678907",
+      "surname": "Smith"
+    },
+    "product": {
+      "creditID": 1,
+      "productName": "Awesome product",
+      "value": 5
+    }
+  },
+  {
+    "credit": {
+      "creditName": "Cool credit no 1",
+      "id": 2
+    },
+    "customer": {
+      "creditID": 2,
+      "firstName": "John",
+      "pesel": "12345678905",
+      "surname": "Smith"
+    },
+    "product": {
+      "creditID": 2,
+      "productName": "Awesome product",
+      "value": 150
+    }
+  }
+]
+```
+
+```json5
+// POST :8081/api/create
+{
+  "credit": {
+    "creditName": "Cool credit no 2"
+  },
+  "customer": {
+    "firstName": "Melanie",
+    "surname": "Smith",
+    "pesel": "12345678907"
+  },
+  "product": {
+    "productName": "Awesome product",
+    "value": 5
+  }
+}
+
+// RESPONSE: 
+123
+```
+- Wrong requests
+<br>
+Each wrong request will result in some error message.
+```json5
+// POST :8081/api/create
+{
+  "credit": {
+    "creditName": ""
+  },
+  "customer": {
+    "firstName": "Melanie",
+    "surname": "Smith",
+    "pesel": "12345678907"
+  },
+  "product": {
+    "productName": "Awesome product",
+    "value": 5
+  }
+}
+
+// RESPONSE: 
+Credit name should have more than 5 and less than 200 characters
+```
+
+```json5
+// POST :8081/api/create
+{
+  "credit": {
+    "creditName": "Cool credit"
+  },
+  "customer": {
+    "firstName": "John",
+    "surname": "Smith",
+    "pesel": "12345678ss7"
+  },
+  "product": {
+    "productName": "Awesome product",
+    "value": 5
+  }
+}
+
+// RESPONSE: 
+Pesel format is 11 numerical characters
+```
 # Testing
 
 Each project supports multiple test profiles.
@@ -55,6 +168,8 @@ Each project supports multiple test profiles.
     - test - in-memory database
 
 # Additional info
+
+Each customer is recognized by Pesel. If customer was once created POST request on /api/create won't change data like name or surname. For this kind of requests PUT method should be used.
 
 Ports:
 
