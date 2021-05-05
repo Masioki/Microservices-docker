@@ -38,8 +38,8 @@ docker-compose start
 # Sample requests
 
 - Endpoints
-  - GET /api/get/all - get all credits
-  - POST /api/create - create new credit
+    - GET /api/get/all - get all credits
+    - POST /api/create - create new credit
 - Proper requests
 
 ```json5
@@ -104,10 +104,12 @@ docker-compose start
 // RESPONSE: 
 123
 ```
+
 - Wrong requests
-<br>
-Each wrong request will result in some error message. Product and customer data are validated at appropriate services and then error message is forwarder to user via main Credit service.
-  
+  <br>
+  Each wrong request will result in some error message. Product and customer data are validated at appropriate services
+  and then error message is forwarder to user via main Credit service.
+
 ```json5
 // POST :8081/api/create
 {
@@ -149,6 +151,7 @@ Credit name should have more than 5 and less than 200 characters
 // RESPONSE: 
 Pesel format is 11 numerical characters
 ```
+
 # Testing
 
 Each project supports multiple test profiles.
@@ -170,9 +173,11 @@ Each project supports multiple test profiles.
 
 # Additional info
 
-There's one database container which is initialized with init.sql file, where databases and users with privileges only to one database (each service use its own user and db) are created. 
+There's one database container which is initialized with init.sql file, where databases and users with privileges only
+to one database (each service use its own user and db) are created.
 
-Each customer is recognized by Pesel. If customer was once created POST request on /api/create won't change data like name or surname. For this kind of requests PUT method should be used.
+Each customer is recognized by Pesel. If customer was once created POST request on /api/create won't change data like
+name or surname. For this kind of requests PUT method should be used.
 
 Ports:
 
