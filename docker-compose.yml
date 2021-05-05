@@ -1,0 +1,43 @@
+version: "3.8"
+
+x-database-config-data:
+  &mysql-connection-data
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+
+
+services:
+  mysql-db:
+    image: mysql
+    ports:
+      - "3306"
+    <<: *mysql-connection-data
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    container_name: mysql-db
+
+  Product:
+    image: product:1.0
+    ports:
+      - 8083:8083
+    depends_on:
+      - mysql-db
+    container_name: Product-container
+
+  Customer:
+    image: customer:1.0
+    ports:
+      - 8082:8082
+    depends_on:
+      - mysql-db
+    container_name: Customer-container
+
+  Credit:
+    image: credit:1.0
+    ports:
+      - 8081:8081
+    depends_on:
+      - Product
+      - Customer
+      - mysql-db
+    container_name: Credit-container
