@@ -99,22 +99,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>com.dkanejs.maven.plugins</groupId>-->
-            <!--                <artifactId>docker-compose-maven-plugin</artifactId>-->
-            <!--                <version>4.0.0</version>-->
-            <!--                <configuration>-->
-            <!--                    <composeFile>${project.basedir}/docker-compose.yml</composeFile>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <goals>-->
-            <!--                            <goal>up</goal>-->
-            <!--                        </goals>-->
-            <!--                         <phase>package</phase>-->
-            <!--                    </execution>-->
-            <!--               </executions>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
