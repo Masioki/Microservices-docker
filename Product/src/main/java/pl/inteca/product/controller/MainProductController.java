@@ -48,7 +48,6 @@ public class MainProductController {
             long id = service.createProduct(productDTO);
             return ResponseEntity.ok(Long.toString(id));
         } catch (ValidationException ve) {
-            ve.printStackTrace();
             // messages from ValidationException are safe to pass to user
             return ResponseEntity.badRequest().body(ve.getMessage());
         } catch (Exception e) {

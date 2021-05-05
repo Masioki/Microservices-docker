@@ -131,7 +131,9 @@ public class MainService {
                 throw e;
             }
         } catch (Exception e) {
+            entityManager.remove(credit);
             log.info("Credit creation rejected by other services, ID=" + creditID);
+            throw e;
         }
 
         // save properly created credit, with already assigned ID, to DB
