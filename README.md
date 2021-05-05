@@ -106,7 +106,7 @@ docker-compose start
 ```
 - Wrong requests
 <br>
-Each wrong request will result in some error message.
+Each wrong request will result in some error message. Product and customer data are validated at appropriate services and then error message is forwarder to user via main Credit service.
   
 ```json5
 // POST :8081/api/create
